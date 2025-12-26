@@ -1,0 +1,31 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env
+venv
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Tests and Config
+tests/
+.pytest_cache/
+.coverage
+htmlcov/
+.vscode/
+.idea/
+pyproject.toml
+README.md
+
+# MLflow
+mlruns/
+
+# Local Dev Scripts
+scripts/

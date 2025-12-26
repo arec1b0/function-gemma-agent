@@ -1,0 +1,107 @@
+2025-12-26 13:22:49.078 | INFO     | app.main:lifespan:16 - Starting up FunctionGemma Agent...
+2025-12-26 13:22:49.078 | INFO     | app.infrastructure.ml.loader:load_model:29 - Loading model: google/functiongemma-270m-it on auto...
+2025-12-26 13:22:49.404 | ERROR    | app.infrastructure.ml.loader:load_model:45 - Failed to load model: You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/google/functiongemma-270m-it.
+401 Client Error. (Request ID: Root=1-694e7e1a-3192ec2f387e8cea7f40accb;b3791530-39b5-47d5-a448-2f886b50c75f)
+
+Cannot access gated repo for url https://huggingface.co/google/functiongemma-270m-it/resolve/main/config.json.
+Access to model google/functiongemma-270m-it is restricted. You must have access to it and be authenticated to access it. Please log in.
+2025-12-26 13:22:49.407 | CRITICAL | app.main:lifespan:23 - Failed to load model on startup: Could not load model google/functiongemma-270m-it: You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/google/functiongemma-270m-it.
+401 Client Error. (Request ID: Root=1-694e7e1a-3192ec2f387e8cea7f40accb;b3791530-39b5-47d5-a448-2f886b50c75f)
+
+Cannot access gated repo for url https://huggingface.co/google/functiongemma-270m-it/resolve/main/config.json.
+Access to model google/functiongemma-270m-it is restricted. You must have access to it and be authenticated to access it. Please log in.
+2025-12-26 13:22:59.424 | INFO     | app.main:lifespan:16 - Starting up FunctionGemma Agent...
+2025-12-26 13:22:59.425 | INFO     | app.infrastructure.ml.loader:load_model:29 - Loading model: google/functiongemma-270m-it on auto...
+2025-12-26 13:22:59.703 | ERROR    | app.infrastructure.ml.loader:load_model:45 - Failed to load model: You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/google/functiongemma-270m-it.
+401 Client Error. (Request ID: Root=1-694e7e25-3971c51a09f4ee366b409da0;99c51df2-c24c-4596-b6ad-82b4fbd92a9b)
+
+Cannot access gated repo for url https://huggingface.co/google/functiongemma-270m-it/resolve/main/config.json.
+Access to model google/functiongemma-270m-it is restricted. You must have access to it and be authenticated to access it. Please log in.
+2025-12-26 13:22:59.704 | CRITICAL | app.main:lifespan:23 - Failed to load model on startup: Could not load model google/functiongemma-270m-it: You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/google/functiongemma-270m-it.
+401 Client Error. (Request ID: Root=1-694e7e25-3971c51a09f4ee366b409da0;99c51df2-c24c-4596-b6ad-82b4fbd92a9b)
+
+Cannot access gated repo for url https://huggingface.co/google/functiongemma-270m-it/resolve/main/config.json.
+Access to model google/functiongemma-270m-it is restricted. You must have access to it and be authenticated to access it. Please log in.
+2025-12-26 13:28:06.434 | INFO     | app.main:lifespan:29 - Shutting down FunctionGemma Agent...
+2025-12-26 13:28:36.814 | INFO     | app.main:lifespan:16 - Starting up FunctionGemma Agent...
+2025-12-26 13:28:36.814 | INFO     | app.infrastructure.ml.loader:load_model:29 - Loading model: google/functiongemma-270m-it on auto...
+2025-12-26 13:28:37.144 | ERROR    | app.infrastructure.ml.loader:load_model:45 - Failed to load model: You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/google/functiongemma-270m-it.
+403 Client Error. (Request ID: Root=1-694e7f76-15b2c32e1430eb1033f4c62c;26b410f4-8174-406e-a371-09514ec43575)
+
+Cannot access gated repo for url https://huggingface.co/google/functiongemma-270m-it/resolve/main/config.json.
+Access to model google/functiongemma-270m-it is restricted and you are not in the authorized list. Visit https://huggingface.co/google/functiongemma-270m-it to ask for access.
+2025-12-26 13:28:37.144 | CRITICAL | app.main:lifespan:23 - Failed to load model on startup: Could not load model google/functiongemma-270m-it: You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/google/functiongemma-270m-it.
+403 Client Error. (Request ID: Root=1-694e7f76-15b2c32e1430eb1033f4c62c;26b410f4-8174-406e-a371-09514ec43575)
+
+Cannot access gated repo for url https://huggingface.co/google/functiongemma-270m-it/resolve/main/config.json.
+Access to model google/functiongemma-270m-it is restricted and you are not in the authorized list. Visit https://huggingface.co/google/functiongemma-270m-it to ask for access.
+2025-12-26 13:29:50.421 | INFO     | app.main:lifespan:29 - Shutting down FunctionGemma Agent...
+2025-12-26 13:30:02.404 | INFO     | app.main:lifespan:16 - Starting up FunctionGemma Agent...
+2025-12-26 13:30:02.405 | INFO     | app.infrastructure.ml.loader:load_model:29 - Loading model: google/functiongemma-270m-it on auto...
+2025-12-26 13:30:09.762 | INFO     | app.infrastructure.ml.loader:load_model:42 - Model loaded successfully.
+2025-12-26 13:30:09.762 | INFO     | app.main:lifespan:21 - Model warm-up complete.
+2025-12-26 13:31:06.125 | INFO     | app.domain.agent:process_request:22 - Processing agent request: Check the status of the prod cluster please
+2025-12-26 13:31:06.167 | ERROR    | app.api.routes:chat_endpoint:36 - Error in chat endpoint: 'dict object' has no attribute 'function'
+2025-12-26 13:31:14.909 | INFO     | app.domain.agent:process_request:22 - Processing agent request: Hi, who are you?
+2025-12-26 13:31:14.910 | ERROR    | app.api.routes:chat_endpoint:36 - Error in chat endpoint: 'dict object' has no attribute 'function'
+2025-12-26 13:32:23.547 | INFO     | app.main:lifespan:29 - Shutting down FunctionGemma Agent...
+2025-12-26 13:32:48.188 | INFO     | app.main:lifespan:16 - Starting up FunctionGemma Agent...
+2025-12-26 13:32:48.188 | INFO     | app.infrastructure.ml.loader:load_model:29 - Loading model: google/functiongemma-270m-it on auto...
+2025-12-26 13:32:50.837 | INFO     | app.infrastructure.ml.loader:load_model:42 - Model loaded successfully.
+2025-12-26 13:32:50.838 | INFO     | app.main:lifespan:21 - Model warm-up complete.
+2025-12-26 13:33:48.492 | INFO     | app.domain.agent:process_request:22 - Processing agent request: Check the status of the prod cluster please
+2025-12-26 13:33:50.666 | INFO     | app.domain.agent:process_request:77 - Model generated a natural language response (no tool execution).
+2025-12-26 13:34:01.799 | INFO     | app.domain.agent:process_request:22 - Processing agent request: Hi, who are you?
+2025-12-26 13:34:04.744 | INFO     | app.domain.agent:process_request:77 - Model generated a natural language response (no tool execution).
+2025-12-26 13:35:02.468 | INFO     | app.domain.agent:process_request:22 - Processing agent request: Get status for cluster_id 'prod'
+2025-12-26 13:35:04.060 | ERROR    | app.infrastructure.ml.inference:parse_output:74 - Failed to parse function call from text: <start_function_call>call:get_cluster_status{cluster_id:<escape>prod<escape>}<end_function_call><start_function_response>. Error: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+2025-12-26 13:35:04.061 | INFO     | app.domain.agent:process_request:77 - Model generated a natural language response (no tool execution).
+2025-12-26 13:35:24.957 | INFO     | app.main:lifespan:29 - Shutting down FunctionGemma Agent...
+2025-12-26 13:35:33.714 | INFO     | app.main:lifespan:16 - Starting up FunctionGemma Agent...
+2025-12-26 13:35:33.716 | INFO     | app.infrastructure.ml.loader:load_model:29 - Loading model: google/functiongemma-270m-it on auto...
+2025-12-26 13:35:36.320 | INFO     | app.infrastructure.ml.loader:load_model:42 - Model loaded successfully.
+2025-12-26 13:35:36.324 | INFO     | app.main:lifespan:21 - Model warm-up complete.
+2025-12-26 13:35:45.466 | INFO     | app.main:lifespan:16 - Starting up FunctionGemma Agent...
+2025-12-26 13:35:45.466 | INFO     | app.infrastructure.ml.loader:load_model:29 - Loading model: google/functiongemma-270m-it on auto...
+2025-12-26 13:35:47.956 | INFO     | app.infrastructure.ml.loader:load_model:42 - Model loaded successfully.
+2025-12-26 13:35:47.956 | INFO     | app.main:lifespan:21 - Model warm-up complete.
+2025-12-26 13:36:03.681 | INFO     | app.main:lifespan:16 - Starting up FunctionGemma Agent...
+2025-12-26 13:36:03.682 | INFO     | app.infrastructure.ml.loader:load_model:29 - Loading model: google/functiongemma-270m-it on auto...
+2025-12-26 13:36:06.212 | INFO     | app.infrastructure.ml.loader:load_model:42 - Model loaded successfully.
+2025-12-26 13:36:06.212 | INFO     | app.main:lifespan:21 - Model warm-up complete.
+2025-12-26 13:36:26.093 | INFO     | app.domain.agent:process_request:22 - Processing agent request: Get status for cluster_id 'prod'
+2025-12-26 13:36:27.891 | ERROR    | app.infrastructure.ml.inference:parse_output:74 - Failed to parse function call from text: <start_function_call>call:get_cluster_status{cluster_id:<escape>prod<escape>}<end_function_call><start_function_response>. Error: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+2025-12-26 13:36:27.892 | INFO     | app.domain.agent:process_request:77 - Model generated a natural language response (no tool execution).
+2025-12-26 13:38:13.046 | INFO     | app.main:lifespan:29 - Shutting down FunctionGemma Agent...
+2025-12-26 13:38:21.293 | INFO     | app.main:lifespan:16 - Starting up FunctionGemma Agent...
+2025-12-26 13:38:21.293 | INFO     | app.infrastructure.ml.loader:load_model:29 - Loading model: google/functiongemma-270m-it on auto...
+2025-12-26 13:38:23.806 | INFO     | app.infrastructure.ml.loader:load_model:42 - Model loaded successfully.
+2025-12-26 13:38:23.806 | INFO     | app.main:lifespan:21 - Model warm-up complete.
+2025-12-26 13:38:41.049 | INFO     | app.domain.agent:process_request:22 - Processing agent request: Check the status of the prod cluster please
+2025-12-26 13:38:43.541 | ERROR    | app.infrastructure.ml.inference:parse_output:74 - Failed to parse function call from text: <start_function_call>call:get_cluster_status{cluster_id:<escape>prod<escape>}<end_function_call><start_function_response>. Error: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+2025-12-26 13:38:43.541 | INFO     | app.domain.agent:process_request:83 - Model generated a natural language response (no tool execution).
+2025-12-26 13:39:21.113 | INFO     | app.main:lifespan:29 - Shutting down FunctionGemma Agent...
+2025-12-26 13:39:31.028 | INFO     | app.main:lifespan:16 - Starting up FunctionGemma Agent...
+2025-12-26 13:39:31.028 | INFO     | app.infrastructure.ml.loader:load_model:29 - Loading model: google/functiongemma-270m-it on auto...
+2025-12-26 13:39:33.765 | INFO     | app.infrastructure.ml.loader:load_model:42 - Model loaded successfully.
+2025-12-26 13:39:33.765 | INFO     | app.main:lifespan:21 - Model warm-up complete.
+2025-12-26 13:39:43.828 | INFO     | app.main:lifespan:16 - Starting up FunctionGemma Agent...
+2025-12-26 13:39:43.829 | INFO     | app.infrastructure.ml.loader:load_model:29 - Loading model: google/functiongemma-270m-it on auto...
+2025-12-26 13:39:46.210 | INFO     | app.infrastructure.ml.loader:load_model:42 - Model loaded successfully.
+2025-12-26 13:39:46.210 | INFO     | app.main:lifespan:21 - Model warm-up complete.
+2025-12-26 13:40:04.897 | INFO     | app.domain.agent:process_request:22 - Processing agent request: Check the status of the prod cluster please
+2025-12-26 13:40:07.414 | WARNING  | app.infrastructure.ml.inference:parse_output:78 - Malformed JSON detected: {cluster_id:<escape>prod<escape>}. Attempting repair.
+2025-12-26 13:40:07.416 | INFO     | app.domain.agent:process_request:52 - Model triggered function call: get_cluster_status with args: {'cluster_id': 'prod'}
+2025-12-26 13:40:07.416 | INFO     | app.infrastructure.tools.k8s_client:execute:38 - Executing ClusterStatusTool for cluster: prod
+2025-12-26 13:42:39.749 | INFO     | app.main:lifespan:29 - Shutting down FunctionGemma Agent...
+2025-12-26 14:19:55.449 | INFO     | app.main:lifespan:16 - Starting up FunctionGemma Agent...
+2025-12-26 14:19:55.451 | INFO     | app.infrastructure.ml.loader:load_model:29 - Loading model: google/functiongemma-270m-it on auto...
+2025-12-26 14:19:57.981 | INFO     | app.infrastructure.ml.loader:load_model:42 - Model loaded successfully.
+2025-12-26 14:19:57.981 | INFO     | app.main:lifespan:21 - Model warm-up complete.
+2025-12-26 14:21:02.408 | INFO     | app.main:lifespan:29 - Shutting down FunctionGemma Agent...

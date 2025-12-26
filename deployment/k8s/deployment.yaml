@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: function-gemma-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: function-gemma-agent
+  template:
+    metadata:
+      labels:
+        app: function-gemma-agent
+    spec:
+      containers:
+        - name: api
+          image: function-gemma-agent:latest
+          ports:
+            - containerPort: 8000

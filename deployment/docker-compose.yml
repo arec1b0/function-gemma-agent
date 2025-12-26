@@ -1,0 +1,30 @@
+services:
+  agent:
+    build:
+      context: ../  # Points to project root
+      dockerfile: deployment/Dockerfile
+    container_name: function-gemma-agent
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount local models directory to persist weights between restarts
+      - ../models_cache:/app/models
+      # Mount logs for observability
+      - ../logs:/app/logs
+      # Mount kubeconfig so the agent can access your cluster (Optional)
+      # Uncomment the next line if you want the container to use your host's cluster access
+      # - ${USERPROFILE}/.kube/config:/root/.kube/config:ro
+    environment:
+      - ENV=production
+      - LOG_LEVEL=INFO
+      - HF_HOME=/app/models
+      - HF_TOKEN=${HF_TOKEN} # Pass the token from the host
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

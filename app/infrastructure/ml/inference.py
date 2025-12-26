@@ -2,12 +2,14 @@ import torch
 import json
 import re
 from typing import List, Dict, Any, Tuple, Optional
+from abc import ABC
+from app.domain.interfaces.llm import LLMProvider
 from app.infrastructure.ml.loader import model_loader
 from app.core.config import settings
 from app.core.logger import log
 from app.observability.metrics import record_reasoning_failure
 
-class GemmaService:
+class GemmaService(LLMProvider):
     """
     Service responsible for interacting with the FunctionGemma model.
     Handles prompt templating, generation, and output parsing.
@@ -15,7 +17,7 @@ class GemmaService:
     def __init__(self):
         self.loader = model_loader
 
-    def generate(self, messages: List[Dict[str, str]], tools_schema: List[Dict[str, Any]]) -> str:
+    async def generate(self, messages: List[Dict[str, str]], tools_schema: List[Dict[str, Any]]) -> str:
         tokenizer = self.loader.tokenizer
         model = self.loader.model
 

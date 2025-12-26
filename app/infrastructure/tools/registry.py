@@ -1,9 +1,10 @@
 from typing import Dict, List, Type, Any  # Added 'Any' here
+from app.domain.interfaces.tools import ToolRegistryProtocol
 from app.infrastructure.tools.base import BaseTool
 from app.infrastructure.tools.k8s_client import ClusterStatusTool
 from app.core.exceptions import ToolExecutionError
 
-class ToolRegistry:
+class ToolRegistry(ToolRegistryProtocol):
     """
     Singleton-like registry to manage available tools.
     """
@@ -20,6 +21,10 @@ class ToolRegistry:
 
     def get_tool(self, name: str) -> BaseTool:
         return self._tools.get(name)
+
+    def list_tools(self) -> List[str]:
+        """List all registered tool names."""
+        return list(self._tools.keys())
 
     def get_all_schemas(self) -> List[Dict[str, Any]]:
         """Returns schemas for all registered tools."""

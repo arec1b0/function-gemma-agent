@@ -5,6 +5,7 @@ from typing import List, Dict, Any, Tuple, Optional
 from app.infrastructure.ml.loader import model_loader
 from app.core.config import settings
 from app.core.logger import log
+from app.observability.metrics import record_reasoning_failure
 
 class GemmaService:
     """
@@ -59,7 +60,12 @@ class GemmaService:
         
         return json_str
 
-    def parse_output(self, generated_text: str) -> Tuple[Optional[str], Optional[Dict[str, Any]]]:
+    def parse_output(self, generated_text: str, available_tools: List[str] = None) -> Tuple[Optional[str], Optional[Dict[str, Any]]]:
+        # Track if we're seeing potential reasoning drift
+        if available_tools is None:
+            from app.infrastructure.tools import registry
+            available_tools = [tool['name'] for tool in registry.get_all_schemas()]
+        
         if "<start_function_call>" in generated_text:
             try:
                 # Extract segment
@@ -72,8 +78,26 @@ class GemmaService:
                     
                     # Attempt standard parse
                     try:
-                        return func_name.strip(), json.loads(args_str)
+                        parsed_args = json.loads(args_str)
+                        # Check if tool exists
+                        if func_name.strip() not in available_tools:
+                            record_reasoning_failure(
+                                "unknown_tool",
+                                {
+                                    "tool_name": func_name.strip(),
+                                    "available_tools": available_tools
+                                }
+                            )
+                        return func_name.strip(), parsed_args
                     except json.JSONDecodeError:
+                        # Record invalid JSON failure
+                        record_reasoning_failure(
+                            "invalid_json",
+                            {
+                                "tool_name": func_name.strip(),
+                                "raw_args": args_str[:200]
+                            }
+                        )
                         # Attempt repair
                         log.warning(f"Malformed JSON detected: {args_str}. Attempting repair.")
                         repaired_args = self._repair_json(args_str)
@@ -83,6 +107,13 @@ class GemmaService:
                     
             except Exception as e:
                 log.error(f"Failed to parse function call: {e}")
+                record_reasoning_failure(
+                    "invalid_json",
+                    {
+                        "error": str(e),
+                        "generated_text": generated_text[:200]
+                    }
+                )
                 return None, None
                 
         return None, None

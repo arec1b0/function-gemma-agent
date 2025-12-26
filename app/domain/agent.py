@@ -6,6 +6,8 @@ from app.infrastructure.ml import gemma_service
 from app.infrastructure.tools import registry
 from app.core.logger import log
 from app.core.exceptions import ToolExecutionError
+from app.inference.engine import tracing_engine
+from app.observability.metrics import record_reasoning_failure
 
 class AgentService:
     """
@@ -23,6 +25,10 @@ class AgentService:
         
         # 1. Prepare Tools Schema
         tools_schema = registry.get_all_schemas()
+        available_tools = [tool['name'] for tool in tools_schema]
+        
+        # Track tool calls for infinite loop detection
+        tool_call_history = []
         
         # 2. Prepare Messages with System Instruction
         # Crucial for 270M models: Be explicit about the role and parameter inference.
@@ -46,9 +52,23 @@ class AgentService:
         final_response_text = generated_text
 
         # 4. Check for Function Call (Acting)
-        func_name, func_args = gemma_service.parse_output(generated_text)
+        func_name, func_args = gemma_service.parse_output(generated_text, available_tools)
         
         if func_name:
+            # Check for infinite loop (same tool called 3+ times with same args)
+            tool_signature = f"{func_name}:{json.dumps(func_args, sort_keys=True)}"
+            tool_call_history.append(tool_signature)
+            
+            if tool_call_history.count(tool_signature) >= 3:
+                record_reasoning_failure(
+                    "infinite_loop",
+                    {
+                        "tool_name": func_name,
+                        "arguments": func_args,
+                        "call_count": tool_call_history.count(tool_signature)
+                    }
+                )
+            
             log.info(f"Model triggered function call: {func_name} with args: {func_args}")
             
             try:
@@ -84,6 +104,15 @@ class AgentService:
 
         # 5. Construct Response
         execution_time = (time.perf_counter() - start_time) * 1000
+        
+        # Trace the request with MLflow
+        tracing_engine.trace_inference(
+            prompt=request.query,
+            response=final_response_text,
+            tool_calls=tool_calls_log,
+            latency_ms=execution_time,
+            tokens_used=None  # TODO: Get from gemma_service
+        )
         
         return AgentResponse(
             query=request.query,

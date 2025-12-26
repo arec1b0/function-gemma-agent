@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Response
 from slowapi import Limiter
 from slowapi.util import get_remote_address
 from app.api.schemas import ChatRequest, ChatResponse
@@ -7,6 +7,7 @@ from app.domain.agent import AgentService
 from app.api.dependencies import get_agent_service
 from app.api.security import get_api_key
 from app.core.logger import log
+from app.observability.metrics import get_metrics
 
 router = APIRouter()
 
@@ -51,3 +52,15 @@ async def health_check():
     No authentication required for load balancers and monitoring.
     """
     return {"status": "ok"}
+
+@router.get("/metrics")
+async def metrics_endpoint():
+    """
+    Prometheus metrics endpoint.
+    Returns metrics in Prometheus format.
+    """
+    metrics_data = get_metrics()
+    return Response(
+        content=metrics_data,
+        media_type="text/plain; version=0.0.4; charset=utf-8"
+    )

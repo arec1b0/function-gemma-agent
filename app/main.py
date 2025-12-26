@@ -9,6 +9,7 @@ from app.core.logger import log
 from app.api.routes import router as api_router
 from app.infrastructure.ml.loader import model_loader
 from app.api.limiter import limiter, rate_limit_exceeded_handler
+from app.observability.metrics import MetricsMiddleware
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -41,6 +42,9 @@ app = FastAPI(
 # Set up rate limiting
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, rate_limit_exceeded_handler)
+
+# Add metrics middleware
+app.add_middleware(MetricsMiddleware)
 
 # Set all CORS enabled origins
 app.add_middleware(

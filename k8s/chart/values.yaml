@@ -1,0 +1,156 @@
+# Default values for function-gemma-agent.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 3
+
+image:
+  repository: ghcr.io/your-org/function-gemma-agent
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "8000"
+  prometheus.io/path: "/metrics"
+
+podSecurityContext:
+  fsGroup: 1000
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop:
+    - ALL
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8000
+
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  hosts:
+    - host: agent.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: function-gemma-agent-tls
+      hosts:
+        - agent.example.com
+
+resources:
+  limits:
+    cpu: 1000m
+    memory: 2Gi
+    ephemeral-storage: 1Gi
+  requests:
+    cpu: 500m
+    memory: 1Gi
+    ephemeral-storage: 500Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 3
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - weight: 100
+      podAffinityTerm:
+        labelSelector:
+          matchExpressions:
+          - key: app.kubernetes.io/name
+            operator: In
+            values:
+            - function-gemma-agent
+        topologyKey: kubernetes.io/hostname
+
+# Liveness and Readiness probe configuration
+livenessProbe:
+  httpGet:
+    path: /health
+    port: http
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /health
+    port: http
+  initialDelaySeconds: 5
+  periodSeconds: 5
+  timeoutSeconds: 3
+  failureThreshold: 3
+
+# Environment variables
+env:
+  - name: ENV
+    value: "production"
+  - name: LOG_LEVEL
+    value: "INFO"
+  - name: API_V1_STR
+    value: "/api/v1"
+  - name: HF_HOME
+    value: "/app/models"
+
+# ConfigMap for additional configuration
+configMap:
+  create: true
+  name: ""
+  data: {}
+
+# Secret for sensitive data
+secret:
+  create: true
+  name: ""
+  data: {}
+
+# Persistent volume for model cache
+persistentVolume:
+  enabled: true
+  accessMode: ReadWriteOnce
+  size: 5Gi
+  storageClass: "fast-ssd"
+  mountPath: "/app/models"
+
+# Deployment strategy
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 25%
+    maxUnavailable: 0%
+
+# Canary deployment values
+canary:
+  enabled: false
+  replicaCount: 1
+  weight: 10

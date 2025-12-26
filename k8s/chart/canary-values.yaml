@@ -1,0 +1,53 @@
+# Canary deployment values
+# Override default values for canary deployment
+
+replicaCount: 1
+
+# Enable canary-specific configurations
+canary:
+  enabled: true
+  weight: 10  # Percentage of traffic to route to canary
+
+# Override image tag for canary
+image:
+  tag: "canary"
+
+# Canary-specific ingress configuration
+ingress:
+  enabled: true
+  annotations:
+    nginx.ingress.kubernetes.io/canary: "true"
+    nginx.ingress.kubernetes.io/canary-weight: "10"
+    nginx.ingress.kubernetes.io/canary-by-header: "X-Canary"
+    nginx.ingress.kubernetes.io/canary-by-header-value: "true"
+  hosts:
+    - host: agent.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+
+# Resource limits for canary (smaller than production)
+resources:
+  limits:
+    cpu: 500m
+    memory: 1Gi
+  requests:
+    cpu: 250m
+    memory: 512Mi
+
+# Disable autoscaling for canary
+autoscaling:
+  enabled: false
+
+# Different service name for canary
+service:
+  name: function-gemma-agent-canary
+
+# Add canary label to pods
+podLabels:
+  deployment-type: canary
+
+# Separate PVC for canary
+persistentVolume:
+  enabled: true
+  size: 1Gi  # Smaller PVC for canary

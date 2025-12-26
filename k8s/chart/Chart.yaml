@@ -1,0 +1,17 @@
+apiVersion: v2
+name: function-gemma-agent
+description: A Helm chart for FunctionGemma Agent Kubernetes deployment
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+keywords:
+  - ai
+  - agent
+  - function-gemma
+  - fastapi
+home: https://github.com/function-gemma-agent
+sources:
+  - https://github.com/function-gemma-agent
+maintainers:
+  - name: Dani
+    email: dani@example.com

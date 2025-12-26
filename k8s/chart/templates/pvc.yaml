@@ -1,0 +1,15 @@
+{{- if .Values.persistentVolume.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "function-gemma-agent.fullname" . }}-pvc
+  labels:
+    {{- include "function-gemma-agent.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - {{ .Values.persistentVolume.accessMode }}
+  storageClassName: {{ .Values.persistentVolume.storageClass }}
+  resources:
+    requests:
+      storage: {{ .Values.persistentVolume.size }}
+{{- end }}
